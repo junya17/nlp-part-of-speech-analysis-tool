@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 import spacy
-import time
+import os
 
 app = Flask(__name__)
 nlp = spacy.load("en_core_web_sm")
@@ -80,4 +80,5 @@ def analyze_text():
     return jsonify({"words": result})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Render では環境変数 PORT を使う
+    app.run(host="0.0.0.0", port=port, debug=False)  # debug=False にする
